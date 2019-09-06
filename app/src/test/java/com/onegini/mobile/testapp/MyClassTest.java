@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
 @RunWith(MockitoJUnitRunner.class)
-public class RandomTest {
+public class MyClassTest {
 
   private SecureRandom secureRandom;
   private MyClass myClass;
@@ -26,18 +26,5 @@ public class RandomTest {
     final int random = myClass.random();
     assertThat(random).isLessThan(10);
     assertThat(random).isGreaterThanOrEqualTo(0);
-  }
-
-  public class MyClass {
-
-    private final SecureRandom secureRandom;
-
-    MyClass(final SecureRandom secureRandom) {
-      this.secureRandom = secureRandom;
-    }
-
-    public int random() {
-      return secureRandom.nextInt(10);
-    }
   }
 }

@@ -1,0 +1,36 @@
+apply plugin: 'jacoco'
+
+jacoco {
+  toolVersion = jacoco_version
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: 'testReleaseUnitTest') {
+  group="Reporting"
+  description="Generate Jacoco coverage reports"
+
+  reports {
+    xml {
+      enabled = true
+      setDestination(new File("${buildDir}/reports/jacocoTestReport.xml"))
+    }
+    html {
+      enabled = true
+      setDestination(new File("${buildDir}/reports/jacoco/"))
+    }
+  }
+
+  def fileFilter = [
+      '**/R.class',
+      '**/R$*.class',
+      '**/BuildConfig.*',
+      '**/Manifest*.*',
+      '**/*Test*.*',
+      'android/**/*.*'
+  ]
+  def debugTree = fileTree(dir: "${buildDir}/intermediates/javac/release/compileReleaseJavaWithJavac/classes", excludes: fileFilter)
+  def mainSrc = "${project.projectDir}/src/main/java"
+
+  sourceDirectories = files([mainSrc])
+  classDirectories = files([debugTree])
+  executionData = files("${buildDir}/jacoco/testReleaseUnitTest.exec")
+}
