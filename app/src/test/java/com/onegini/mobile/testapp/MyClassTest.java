@@ -24,7 +24,7 @@ public class MyClassTest {
     myClass = new MyClass(secureRandom);
 
     final Random random = new Random();
-    expectedLength = random.nextInt(200) + 1; // [1 - 200]
+    expectedLength = random.nextInt(50) + 150; // [150 - 200]
   }
 
   @Test
